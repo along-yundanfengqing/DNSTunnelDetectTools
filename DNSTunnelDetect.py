@@ -5,7 +5,7 @@
 """
 DNS隧道通信检测工具
 作者:陈然
-版本：V1.0.1
+版本：V1.0.3
 联系：WeChat-Number -> cr1914518025
 """
 
@@ -13,11 +13,11 @@ DNS隧道通信检测工具
 #脚本信息配置:
 _author  = "隐私保护"
 _nicky   = "挖洞的土拨鼠"
-_version = "v1.0.1"
+_version = "v1.0.3"
 _version_string = """\033[0;32m
             DNS隧道通信检测工具
             作者:陈然
-            版本：V1.0.1
+            版本：V1.0.3
             联系：WeChat-Number -> cr1914518025
             操作系统：支持Linux、Unix、MacOS X、Windows
 \033[0m"""
@@ -57,13 +57,17 @@ def dns_request_analyst(string,sport):
         dstr = dstr[2:]
         domain += str(dstr)+"."
     domain = domain[0:-1]
-    score = float(len(domain) - 52) * 0.5
+    score = float(len(domain) - 52.0) * 0.5
+    if len(domain) <= 30:
+        score = 0
+    elif (len(domain) - 52) <= 0:
+        score = (52 - len(domain)) * 0.2
     for item in list(str(domain)):
         if item not in list("01234567890-abcdefghijklmnopqrstuvwxyz."):
             score *= 2
             break
     if rtype == '0010':
-        pass
+        score *= 2
     else:
         score = score * 0.4
     pid = None
