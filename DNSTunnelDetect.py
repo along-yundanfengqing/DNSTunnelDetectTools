@@ -57,9 +57,11 @@ def dns_request_analyst(string,sport):
         dstr = dstr[2:]
         domain += str(dstr)+"."
     domain = domain[0:-1]
-    score = float(len(domain) - 20) * 0.2
-    if domain.find("=") >= 0:
-        score += 5
+    score = float(len(domain) - 52) * 0.5
+    for item in list(str(domain)):
+        if item not in list("01234567890-abcdefghijklmnopqrstuvwxyz."):
+            score *= 2
+            break
     if rtype == '0010':
         pass
     else:
