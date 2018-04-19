@@ -4,7 +4,7 @@
 
 """
 DNS隧道通信检测工具
-作者:陈然
+作者:隐私保护
 版本：V1.0.3
 联系：WeChat-Number -> cr1914518025
 """
@@ -16,7 +16,7 @@ _nicky   = "挖洞的土拨鼠"
 _version = "v1.0.3"
 _version_string = """\033[0;32m
             DNS隧道通信检测工具
-            作者:陈然
+            作者:隐私保护
             版本：V1.0.3
             联系：WeChat-Number -> cr1914518025
             操作系统：支持Linux、Unix、MacOS X、Windows
@@ -84,8 +84,9 @@ def dns_request_analyst(string,sport):
     else:
         pass
     flag = False
-    if score > 4
-    return True,domain,score,pid
+    if score > 4:
+        flag = True
+    return flag,domain,score,pid
 
 #定义DNS嗅探解析报文获取类
 class Packet_Sniffer_Filter:
@@ -106,7 +107,7 @@ class Packet_Sniffer_Filter:
             dport = packet.data.data.dport
             if dport != 53:
                 continue
-            result_flag,domain,score,processid = dns_request_analyst(packet.data.data.data,sport)#加入待分析队列
+            result_flag,domain,score,processid = dns_request_analyst(packet.data.data.data,sport)#进行DNS分析
             if result_flag:
                 print """\033[0;31m
                 [*] 疑似DNS隧道通信
